@@ -1,11 +1,9 @@
 import type { Serverless } from 'serverless/aws';
+import {functions} from "./src/routing";
 
 const serverlessConfiguration: Serverless = {
   service: {
     name: 'products-service',
-    // app and org for use with dashboard.serverless.com
-    // app: your-app-name,
-    // org: your-org-name,
   },
   frameworkVersion: '2',
   custom: {
@@ -14,11 +12,25 @@ const serverlessConfiguration: Serverless = {
       includeModules: true
     }
   },
-  // Add the serverless-webpack plugin
   plugins: ['serverless-webpack'],
   provider: {
     name: 'aws',
     runtime: 'nodejs12.x',
+    region: 'eu-west-1',
+    iamRoleStatements: [
+      {
+        Effect: "Allow",
+        Action: [
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DeleteItem"
+        ],
+        Resource: "*"
+      }
+    ],
     apiGateway: {
       minimumCompressionSize: 1024,
     },
@@ -26,19 +38,30 @@ const serverlessConfiguration: Serverless = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
     },
   },
-  functions: {
-    hello: {
-      handler: 'handler.hello',
-      events: [
-        {
-          http: {
-            method: 'get',
-            path: 'hello',
-          }
+  resources: {
+    Resources: {
+      ProductsTable: {
+        Type: "AWS::DynamoDB::Table",
+        Properties: {
+          TableName: "ProductsTable",
+          BillingMode: "PAY_PER_REQUEST",
+          AttributeDefinitions: [
+            {
+              AttributeName: "id",
+              AttributeType: "S"
+            }
+          ],
+          KeySchema: [
+            {
+              AttributeName: "id",
+              KeyType: "HASH"
+            }
+          ],
         }
-      ]
+      }
     }
-  }
+  },
+  functions: functions
 }
 
 module.exports = serverlessConfiguration;
