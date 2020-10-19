@@ -32,6 +32,17 @@ export const functions = {
             }
         ]
     },
+    clearCart: {
+        handler: 'src/handlers/clearCart.handler',
+        events: [
+            {
+                http: {
+                    method: 'put',
+                    path: '/carts/{id}/clear',
+                }
+            }
+        ]
+    },
     update: {
         handler: 'src/handlers/updateCart.handler',
             events: [
@@ -61,6 +72,17 @@ export const functions = {
                 http: {
                     method: 'patch',
                     path: '/carts/{id}/add/{productId}',
+                }
+            }
+        ]
+    },
+    removeProductFromCart: {
+        handler: 'src/handlers/removeProductFromCart.handler',
+        events: [
+            {
+                http: {
+                    method: 'patch',
+                    path: '/carts/{id}/remove/{productId}',
                 }
             }
         ]
