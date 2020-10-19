@@ -40,7 +40,7 @@
             <div class="col-3">{{ product.price }}</div>
             <div class="col-3">{{ product.taxPercent }}</div>
             <div class="col-3">
-              <button class="btn btn-danger" @click="deleteProduct(product.id)">Delete</button>
+              <button class="btn btn-danger mr-1" @click="deleteProduct(product.id)">Delete</button>
               <button class="btn btn-primary" @click="edit = true; editing = product">Edit</button>
             </div>
           </div>
