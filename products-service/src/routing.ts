@@ -6,6 +6,7 @@ export const functions = {
                 http: {
                     method: 'post',
                     path: '/products',
+                    cors: true
                 }
             }
         ]
@@ -17,6 +18,7 @@ export const functions = {
                 http: {
                     method: 'get',
                     path: '/products',
+                    cors: true
                 }
             }
         ]
@@ -28,6 +30,7 @@ export const functions = {
                 http: {
                     method: 'get',
                     path: '/products/{id}',
+                    cors: true
                 }
             }
         ]
@@ -39,6 +42,7 @@ export const functions = {
                 http: {
                     method: 'put',
                     path: '/products/{id}',
+                    cors: true
                 }
             }
         ]
@@ -50,6 +54,7 @@ export const functions = {
                 http: {
                     method: 'delete',
                     path: '/products/{id}',
+                    cors: true
                 }
             }
         ]

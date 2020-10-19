@@ -9,17 +9,18 @@
   "dependencies": {
     "@bitjourney/uuid-v4": "^1.0.1",
     "@middy/core": "^1.4.0",
+    "@middy/http-cors": "^1.4.0",
     "@middy/http-error-handler": "^1.4.0",
     "@middy/http-event-normalizer": "^1.4.0",
     "@middy/http-json-body-parser": "^1.4.0",
+    "@types/aws-lambda": "^8.10.17",
+    "@types/node": "^10.12.18",
+    "@types/serverless": "^1.72.5",
     "@types/uuid": "^8.3.0",
     "aws-sdk": "^2.771.0",
     "http-errors": "^1.8.0",
     "source-map-support": "^0.5.10",
-    "uuid": "^8.3.1",
-    "@types/aws-lambda": "^8.10.17",
-    "@types/node": "^10.12.18",
-    "@types/serverless": "^1.72.5"
+    "uuid": "^8.3.1"
   },
   "devDependencies": {
     "fork-ts-checker-webpack-plugin": "^3.0.1",

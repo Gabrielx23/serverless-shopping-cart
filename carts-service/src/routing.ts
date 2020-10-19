@@ -6,6 +6,7 @@ export const functions = {
                 http: {
                     method: 'post',
                     path: '/carts',
+                    cors: true
                 }
             }
         ]
@@ -17,6 +18,7 @@ export const functions = {
                 http: {
                     method: 'get',
                     path: '/carts',
+                    cors: true
                 }
             }
         ]
@@ -28,6 +30,7 @@ export const functions = {
                 http: {
                     method: 'get',
                     path: '/carts/{id}',
+                    cors: true
                 }
             }
         ]
@@ -39,6 +42,7 @@ export const functions = {
                 http: {
                     method: 'put',
                     path: '/carts/{id}/clear',
+                    cors: true
                 }
             }
         ]
@@ -50,6 +54,7 @@ export const functions = {
                 http: {
                     method: 'put',
                     path: '/carts/{id}',
+                    cors: true
                 }
             }
         ]
@@ -61,6 +66,7 @@ export const functions = {
                 http: {
                     method: 'delete',
                     path: '/carts/{id}',
+                    cors: true
                 }
             }
         ]
@@ -72,6 +78,7 @@ export const functions = {
                 http: {
                     method: 'patch',
                     path: '/carts/{id}/add/{productId}',
+                    cors: true
                 }
             }
         ]
@@ -83,6 +90,7 @@ export const functions = {
                 http: {
                     method: 'patch',
                     path: '/carts/{id}/remove/{productId}',
+                    cors: true
                 }
             }
         ]
