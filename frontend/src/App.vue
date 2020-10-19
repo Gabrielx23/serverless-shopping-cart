@@ -1,17 +1,43 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container">
+      <h1 class="text-center">Cloud Shopping Carts</h1>
+      <ul class="nav nav-tabs" id="tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="carts-tab" data-toggle="tab" href="#carts" role="tab" aria-controls="carts" aria-selected="true">Carts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="products-tab" data-toggle="tab" href="#products" role="tab" aria-controls="products" aria-selected="false">Products</a>
+        </li>
+      </ul>
+      <div class="tab-content border border-solid border-top-0" id="tabContent">
+        <div class="tab-pane fade show active" id="carts" role="tabpanel" aria-labelledby="home-tab">
+          <Carts></Carts>
+        </div>
+        <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="profile-tab">
+          <Products></Products>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Products from './components/Products.vue'
+import Carts from './components/Carts.vue'
 
 export default {
   name: 'App',
+
+  data() {
+    return {
+      showProducts: false
+    };
+  },
+
   components: {
-    HelloWorld
+    Products,
+    Carts
   }
 }
 </script>
