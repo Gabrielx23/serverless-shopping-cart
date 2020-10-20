@@ -1,41 +1,41 @@
 <template>
-    <div class="card card-body text-left">
-      <h3>Editing:</h3>
-      <form @submit.prevent>
-        <div class="form-group">
-          <label for="cartName">Cart name:</label>
-          <input type="text" v-model="cartData.cartName" class="form-control" id="cartName" placeholder="Cart name...">
+  <div class="card card-body text-left">
+    <h3>Editing:</h3>
+    <form @submit.prevent>
+      <div class="form-group">
+        <label for="cartName">Cart name:</label>
+        <input type="text" v-model="cartData.cartName" class="form-control" id="cartName" placeholder="Cart name...">
+      </div>
+      <div class="row px-3">
+        <div class="col-12 px-0 pb-2">Products:</div>
+        <div class="col-3 border py-2" v-for="(product, key) in cartData.products" :key="key">
+          <strong>Name: </strong> {{ product.productName }} <br>
+          <strong>Price: </strong> {{ product.price }}$ <br>
+          <strong>Price with tax: </strong> {{ (product.price * (1 + (product.taxPercent / 100))).toFixed(2) }}$
+          <button class="btn btn-danger mt-2" @click="removeProductFromCart(product.id)">Delete from cart</button>
         </div>
-        <div class="row px-3">
-          <div class="col-12 px-0 pb-2">Products:</div>
-          <div class="col-3 border py-2" v-for="product in cartData.products" :key="product.id">
-            <strong>Name: </strong> {{product.productName}} <br>
-            <strong>Price: </strong> {{product.price}}$ <br>
-            <strong>Price with tax: </strong> {{product.price * (product.taxPercent / 100).toFixed(2)}}$
-            <button class="btn btn-danger mt-2" @click="removeProductFromCart(product.id)">Delete from cart</button>
-          </div>
+      </div>
+      <div class="row pt-3 px-2">
+        <div class="col-8">
+          <label for="newProduct">Select product:</label>
+          <select v-model="productIdToAdd" id="newProduct" class="form-control">
+            <option v-for="product in allProducts" :key="product.id" v-bind:value="product.id">
+              {{ product.productName }}
+            </option>
+          </select>
         </div>
-        <div class="row pt-3 px-2">
-          <div class="col-8">
-            <label for="newProduct">Select product:</label>
-            <select v-model="productIdToAdd" id="newProduct" class="form-control">
-              <option v-for="product in allProducts" :key="product.id" v-bind:value="product.id">
-                {{product.productName}}
-              </option>
-            </select>
-          </div>
-          <div class="col-4 pt-4 mt-2">
-            <button class="btn btn-success btn-block" @click="addProductToCart">Add</button>
-          </div>
+        <div class="col-4 pt-4 mt-2">
+          <button class="btn btn-success btn-block" @click="addProductToCart">Add</button>
         </div>
-        <hr>
-        <div class="form-group text-right">
-          <button type="submit" class="btn btn-success" @click="processForm">
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+      </div>
+      <hr>
+      <div class="form-group text-right">
+        <button type="submit" class="btn btn-success" @click="processForm">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -83,13 +83,15 @@ export default {
     },
 
     setForm() {
-      const products = this.cart.products ? this.cart.products.flatMap(element =>
-          this.allProducts.filter(product => product.id === element.id)
-      ) : [];
+      const allProductsIds = this.allProducts.map(product => product.id);
+
+      const cartProducts = this.cart.products
+          .filter(productId => allProductsIds.includes(productId))
+          .map(productId => this.allProducts.find(product => product.id === productId));
 
       this.cartData = {
         cartName: this.cart.cartName,
-        products,
+        products: cartProducts,
       };
     }
   },

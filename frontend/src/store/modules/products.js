@@ -7,9 +7,7 @@ const state = {
 };
 
 const getters = {
-    allProducts: (state) => state.products,
-    getById: (state, id) => state.products.filter(product => product.id === id),
-    getByIds: (state, ids) => state.products.filter(product => ids.include(product.id))
+    allProducts: (state) => state.products
 };
 
 const actions = {

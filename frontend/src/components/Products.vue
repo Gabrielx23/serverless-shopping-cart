@@ -33,14 +33,14 @@
         <div class="col-3">Action:</div>
       </div>
       <div class="row">
-        <div class="col-12 pb-3" v-for="product in allProducts" :key="product.id">
+        <div class="col-12 pb-3" v-for="(product, key) in allProducts" :key="key">
           <hr>
           <div class="row">
             <div class="col-3">{{ product.productName }}</div>
             <div class="col-3">{{ product.price }}</div>
             <div class="col-3">{{ product.taxPercent }}</div>
             <div class="col-3">
-              <button class="btn btn-danger mr-1" @click="deleteProduct(product.id)">Delete</button>
+              <button class="btn btn-danger mr-1" @click="deleteProduct(product.id)">Del</button>
               <button class="btn btn-primary" @click="edit = true; editing = product">Edit</button>
             </div>
           </div>

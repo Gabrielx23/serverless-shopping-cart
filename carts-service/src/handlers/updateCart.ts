@@ -14,9 +14,9 @@ const updateCartHandler: APIGatewayProxyHandler = async (event, _context) => {
         throw new createError.NotFound();
     }
 
-    const cart = await updateCart(id, cartData);
+    await updateCart(id, cartData);
 
-    return {statusCode: 200, body: JSON.stringify(cart)};
+    return {statusCode: 200, body: JSON.stringify((await getCart(id)).Item)};
 };
 
 export const handler = middleware(updateCartHandler);

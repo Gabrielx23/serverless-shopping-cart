@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
-      <h1 class="text-center">Cloud Shopping Carts</h1>
+      <h2 class="text-center">Cloud Shopping Carts</h2><br>
       <ul class="nav nav-tabs" id="tab" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" id="carts-tab" data-toggle="tab" href="#carts" role="tab" aria-controls="carts" aria-selected="true">Carts</a>

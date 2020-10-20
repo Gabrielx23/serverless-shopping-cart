@@ -29,7 +29,9 @@ const actions = {
         commit('removeCart', response.data);
     },
 
-    async updateCart({ commit }, { id, data }) {
+    async updateCart({ commit }, cart) {
+        const { id, data } = cart;
+
         const response = await axios.put(`${cartsUri}/${id}`, data);
 
         commit('changeCartData', response.data);
@@ -47,9 +49,7 @@ const mutations = {
     changeCartData: (state, updated) => {
         const index = state.carts.findIndex(cart => cart.id === updated.id);
 
-        if (index) {
-            state.carts.splice(index, 1, updated);
-        }
+        state.carts.splice(index, 1, updated);
     }
 };
 

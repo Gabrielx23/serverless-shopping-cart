@@ -7,7 +7,8 @@
       </div>
 
       <div class="col-6 text-right pt-3">
-        <button v-if="!edit" class="btn btn-success" data-toggle="collapse" data-target="#addCartCollapse" aria-expanded="false"
+        <button v-if="!edit" class="btn btn-success" data-toggle="collapse" data-target="#addCartCollapse"
+                aria-expanded="false"
                 aria-controls="addCartCollapse">
           Add cart
         </button>
@@ -20,7 +21,7 @@
     <EditCart
         v-if="edit"
         v-bind:cart="editing"
-        v-on:cartUpdated="edit = false"
+        v-on:cartUpdated="cartUpdated"
     ></EditCart>
 
     <div v-else>
@@ -28,22 +29,24 @@
       <hr>
       <div class="row font-weight-bold">
         <div class="col-4">Name:</div>
-        <div class="col-4">Products:</div>
         <div class="col-4">Action:</div>
+        <div class="col-4">Info <button class="btn btn-primary" @click="info = !info">toggle</button></div>
       </div>
       <div class="row">
         <div class="col-12 pb-3" v-for="cart in allCarts" :key="cart.id">
           <hr>
           <div class="row">
             <div class="col-4">{{ cart.cartName }}</div>
-            <div class="col-4">{{ cart.products ? cart.products.length : 0 }}</div>
             <div class="col-4">
-              <button class="btn btn-danger mr-1" @click="deleteCart(cart.id)">Delete</button>
-              <button class="btn btn-primary mr-1" @click="edit = true; editing = cart">Edit</button>
-              <button class="btn btn-primary" data-toggle="collapse" data-target="#cartInfoCollapse" aria-expanded="false"
-                      aria-controls="cartInfoCollapse">
-                Info
-              </button>
+              <button class="btn btn-danger mr-1" @click="deleteCart(cart.id)">Del</button>
+              <button class="btn btn-primary mr-1" @click="edit = true; editing = cart; info = false;">Edit</button>
+            </div>
+            <div class="col-4">
+              <CartInfoComponent
+                  v-if="info"
+                  v-bind:cart="cart"
+                  v-bind:allProducts="allProducts"
+              ></CartInfoComponent>
             </div>
           </div>
         </div>
@@ -56,6 +59,7 @@
 import {mapGetters, mapActions} from 'vuex';
 import AddCart from "./AddCart";
 import EditCart from "./EditCart";
+import CartInfoComponent from "./CartInfoComponent";
 
 export default {
   name: "Carts.vue",
@@ -63,17 +67,23 @@ export default {
   data() {
     return {
       edit: false,
-      editing: {}
+      editing: {},
+      info: false
     };
   },
 
   methods: {
     ...mapActions(['fetchCarts', 'deleteCart']),
+
+    cartUpdated() {
+      this.edit = false;
+      this.fetchCarts();
+    },
   },
 
-  components: {AddCart, EditCart},
+  components: {CartInfoComponent, AddCart, EditCart},
 
-  computed: mapGetters(['allCarts']),
+  computed: mapGetters(['allCarts', 'allProducts']),
 
   created() {
     this.fetchCarts();
